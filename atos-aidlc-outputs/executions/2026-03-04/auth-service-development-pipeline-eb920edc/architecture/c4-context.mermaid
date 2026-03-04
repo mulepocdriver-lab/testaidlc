@@ -1,0 +1,24 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#0066cc'}}}%%
+graph TB
+    subgraph ext[External Systems]
+        email[📧 Email Service]
+        sms[📱 SMS Gateway]
+        oauth[🔐 OAuth Providers]
+        monitor[📊 Monitoring]
+    end
+    
+    subgraph users[Users]
+        user[👤 User]
+        admin[👨‍💼 Administrator]
+    end
+    
+    subgraph system[User Authentication Service]
+        auth[🔒 Authentication System]
+    end
+    
+    user -->|Authenticates| auth
+    admin -->|Manages| auth
+    auth -->|Sends emails| email
+    auth -->|Sends SMS| sms
+    auth -->|OAuth 2.0| oauth
+    auth -->|Logs & Metrics| monitor
