@@ -1,0 +1,13 @@
+Requirement ID,Description,Business Objective,Priority,Status,Test Cases
+FR-001,User Registration,Enable new user onboarding,High,Validated,TC-001;TC-002;TC-003
+FR-002,Email Verification,Ensure valid email addresses,High,Validated,TC-004;TC-005
+FR-003,User Authentication,Secure access control,Critical,Validated,TC-006;TC-007;TC-008;TC-009
+FR-004,Password Reset,Account recovery,High,Validated,TC-010;TC-011
+FR-005,Session Management,Security and UX,High,Validated,TC-012;TC-013;TC-014
+FR-006,Token Refresh,Seamless experience,Medium,Validated,TC-015;TC-016
+FR-007,User Profile Management,User self-service,Medium,Validated,TC-017;TC-018
+FR-008,Account Deactivation,User privacy,Low,Validated,TC-019
+FR-009,Multi-factor Authentication,Enhanced security,High,Pending,TC-020;TC-021;TC-022
+FR-010,OAuth Integration,Third-party auth,Medium,Validated,TC-023;TC-024
+FR-011,Audit Logging,Compliance and debugging,High,Validated,TC-025;TC-026
+FR-012,Rate Limiting,API protection,High,Validated,TC-027;TC-028
