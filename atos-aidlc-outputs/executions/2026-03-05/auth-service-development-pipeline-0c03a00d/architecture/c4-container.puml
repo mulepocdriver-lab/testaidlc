@@ -1,0 +1,31 @@
+@startuml C4_Container
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title Container Diagram - User Authentication Service
+
+Person(user, "User", "Application user")
+
+System_Boundary(authSystem, "User Authentication Service") {
+    Container(webApp, "Web Application", "React/Next.js", "Provides login UI and user management interface")
+    Container(apiGateway, "API Gateway", "Kong/nginx", "API routing, rate limiting, SSL termination")
+    Container(authService, "Auth Service", "Node.js/Express", "Core authentication logic")
+    Container(userService, "User Service", "Node.js/Express", "User management and profiles")
+    Container(sessionService, "Session Service", "Node.js/Express", "Session and token management")
+    ContainerDb(postgres, "PostgreSQL", "PostgreSQL 15", "Stores user data, credentials, audit logs")
+    ContainerDb(redis, "Redis Cluster", "Redis 7", "Session storage, rate limiting, caching")
+}
+
+System_Ext(emailSystem, "Email Service", "SendGrid/SES")
+
+Rel(user, webApp, "Uses", "HTTPS")
+Rel(webApp, apiGateway, "API calls", "HTTPS/JSON")
+Rel(apiGateway, authService, "Routes to", "HTTP")
+Rel(apiGateway, userService, "Routes to", "HTTP")
+Rel(apiGateway, sessionService, "Routes to", "HTTP")
+Rel(authService, postgres, "Reads/Writes", "SQL")
+Rel(authService, redis, "Caches", "Redis Protocol")
+Rel(userService, postgres, "Reads/Writes", "SQL")
+Rel(sessionService, redis, "Manages sessions", "Redis Protocol")
+Rel(authService, emailSystem, "Sends emails", "API")
+
+@enduml
