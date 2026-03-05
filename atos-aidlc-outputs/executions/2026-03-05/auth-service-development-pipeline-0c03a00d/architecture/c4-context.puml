@@ -1,0 +1,23 @@
+@startuml C4_Context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title System Context Diagram - User Authentication Service
+
+Person(user, "User", "Application user who needs to authenticate")
+Person(admin, "Administrator", "System administrator")
+
+System(authSystem, "User Authentication Service", "Handles user authentication, authorization, and session management")
+
+System_Ext(emailSystem, "Email Service", "Sends verification and notification emails")
+System_Ext(smsSystem, "SMS Gateway", "Sends SMS for MFA")
+System_Ext(oauthProviders, "OAuth Providers", "Google, GitHub, Microsoft SSO")
+System_Ext(monitoring, "Monitoring System", "Logs and metrics collection")
+
+Rel(user, authSystem, "Authenticates via", "HTTPS")
+Rel(admin, authSystem, "Manages users via", "HTTPS")
+Rel(authSystem, emailSystem, "Sends emails via", "SMTP/API")
+Rel(authSystem, smsSystem, "Sends SMS via", "API")
+Rel(authSystem, oauthProviders, "Authenticates via", "OAuth 2.0")
+Rel(authSystem, monitoring, "Sends logs to", "HTTPS")
+
+@enduml
