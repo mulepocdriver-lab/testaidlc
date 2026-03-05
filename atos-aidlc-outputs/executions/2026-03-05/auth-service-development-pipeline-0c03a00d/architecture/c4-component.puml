@@ -1,0 +1,30 @@
+@startuml C4_Component
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Component Diagram - Auth Service
+
+Container_Boundary(authService, "Auth Service") {
+    Component(authController, "Auth Controller", "Express Router", "Handles authentication endpoints")
+    Component(authMiddleware, "Auth Middleware", "Express Middleware", "JWT validation, rate limiting")
+    Component(passwordService, "Password Service", "bcrypt", "Password hashing and validation")
+    Component(tokenService, "Token Service", "jsonwebtoken", "JWT generation and validation")
+    Component(mfaService, "MFA Service", "speakeasy", "TOTP generation and validation")
+    Component(oauthService, "OAuth Service", "passport.js", "OAuth provider integration")
+    Component(auditService, "Audit Service", "Custom", "Audit logging")
+    Component(userRepository, "User Repository", "Prisma", "User data access")
+}
+
+ContainerDb(postgres, "PostgreSQL", "Database")
+ContainerDb(redis, "Redis", "Cache")
+
+Rel(authController, authMiddleware, "Uses")
+Rel(authController, passwordService, "Uses")
+Rel(authController, tokenService, "Uses")
+Rel(authController, mfaService, "Uses")
+Rel(authController, oauthService, "Uses")
+Rel(authController, auditService, "Logs to")
+Rel(authController, userRepository, "Uses")
+Rel(userRepository, postgres, "Queries")
+Rel(tokenService, redis, "Caches tokens")
+
+@enduml
